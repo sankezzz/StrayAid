@@ -1,0 +1,12 @@
+[
+    {
+        "case_id": 1,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp"
+    },
+    {
+        "case_id": 2,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg"
+    }
+]

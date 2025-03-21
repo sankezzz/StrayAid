@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stray Injury Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 700px;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+        }
+        
+        h2 {
+            color: #444;
+            font-weight: 700;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h2 i {
+            color: #6c5ce7;
+            margin-right: 10px;
+        }
+        
+        .form-control {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 60px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f9f9f9;
+            position: relative;
+        }
+        
+        .form-control:hover {
+            border-color: #a29bfe;
+            background: #f5f5ff;
+        }
+        
+        .input-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+        
+        .upload-icon {
+            font-size: 40px;
+            color: #6c5ce7;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .upload-text {
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .btn-upload {
+            background: linear-gradient(90deg, #4776E6 0%, #8E54E9 100%);
+            border: none;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: inline-block;
+        }
+        
+        .btn-upload:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-upload:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .btn-upload i {
+            margin-right: 8px;
+        }
+        
+        .preview-container {
+            margin-top: 25px;
+            display: none;
+        }
+        
+        .preview-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+        
+        .preview-img:hover {
+            transform: scale(1.02);
+        }
+        
+        .prediction-container {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .badge {
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: 30px;
+        }
+        
+        .file-input {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+        }
+        
+        #file-name {
+            margin-top: 10px;
+            color: #6c5ce7;
+            font-weight: 600;
+        }
+        
+        .upload-area {
+            transition: all 0.3s;
+        }
+        
+        .upload-area.has-image {
+            padding: 15px;
+        }
+        
+        .reset-btn {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            color: #6c757d;
+            border-radius: 30px;
+            padding: 8px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .reset-btn:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+        
+        .loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            color: #6c5ce7;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #6c5ce7;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fas fa-paw"></i>Stray Injury Detection</h2>
+        <form action="/" method="post" enctype="multipart/form-data" id="upload-form">
+            <div class="position-relative mb-4">
+                <div class="form-control upload-area" id="upload-area">
+                    <div class="input-label" id="upload-label">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <div class="upload-text">Drag and drop an image or click to browse</div>
+                        <div id="file-name"></div>
+                    </div>
+                    <input type="file" name="file" class="file-input" accept="image/*" required id="file-input">
+                </div>
+            </div>
+            
+            <div class="preview-container" id="preview-container">
+                <img id="image-preview" class="preview-img" src="" alt="Image Preview">
+            </div>
+            
+            <div>
+                <button type="submit" class="btn-upload" id="analyze-btn" disabled>
+                    <i class="fas fa-search"></i>Analyze Image
+                </button>
+                <button type="button" class="reset-btn" id="reset-btn" style="display: none;">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div> Analyzing image...
+            </div>
+        </form>
+        
+        <div class="prediction-container" id="prediction-container" style="display: none;">
+            <h3>Prediction: 
+                <span class="badge bg-success" id="prediction-badge">
+                    <i class="fas fa-check-circle" id="prediction-icon"></i>
+                    <span id="prediction-text">Healthy</span>
+                </span>
+            </h3>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('file-input');
+            const uploadArea = document.getElementById('upload-area');
+            const uploadLabel = document.getElementById('upload-label');
+            const fileName = document.getElementById('file-name');
+            const imagePreview = document.getElementById('image-preview');
+            const previewContainer = document.getElementById('preview-container');
+            const analyzeBtn = document.getElementById('analyze-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const form = document.getElementById('upload-form');
+            const loading = document.getElementById('loading');
+            const predictionContainer = document.getElementById('prediction-container');
+            const predictionBadge = document.getElementById('prediction-badge');
+            const predictionIcon = document.getElementById('prediction-icon');
+            const predictionText = document.getElementById('prediction-text');
+            
+            // Initialize with server-provided data if available
+            {% if prediction %}
+                // This code will run if the server has returned a prediction
+                predictionText.textContent = "{{ prediction }}";
+                
+                if ("{{ prediction }}" === "Injured") {
+                    predictionBadge.className = "badge bg-danger";
+                    predictionIcon.className = "fas fa-exclamation-triangle";
+                } else {
+                    predictionBadge.className = "badge bg-success";
+                    predictionIcon.className = "fas fa-check-circle";
+                }
+                
+                // Show the prediction container
+                predictionContainer.style.display = "block";
+                
+                // If there's an image path provided by the server, use it
+                if ("{{ image_path }}") {
+                    imagePreview.src = "{{ image_path }}";
+                    previewContainer.style.display = "block";
+                }
+            {% endif %}
+            
+            // Handle file selection
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const file = this.files[0];
+                    
+                    // Show file name
+                    fileName.textContent = file.name;
+                    
+                    // Create object URL for preview
+                    const objectUrl = URL.createObjectURL(file);
+                    imagePreview.src = objectUrl;
+                    
+                    // Show preview
+                    previewContainer.style.display = "block";
+                    
+                    // Change upload area style
+                    uploadArea.classList.add('has-image');
+                    uploadLabel.innerHTML = '<i class="fas fa-check upload-icon" style="color: #4CAF50;"></i><div class="upload-text">Image Selected</div>';
+                    
+                    // Enable analyze button
+                    analyzeBtn.disabled = false;
+                    
+                    // Show reset button
+                    resetBtn.style.display = "inline-block";
+                    
+                    // Hide prediction if present
+                    predictionContainer.style.display = "none";
+                }
+            });
+            
+            // Reset button functionality
+            resetBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Reset file input
+                fileInput.value = "";
+                
+                // Hide preview
+                previewContainer.style.display = "none";
+                
+                // Reset upload area
+                uploadArea.classList.remove('has-image');
+                uploadLabel.innerHTML = '<i class="fas fa-cloud-upload-alt upload-icon"></i><div class="upload-text">Drag and drop an image or click to browse</div><div id="file-name"></div>';
+                
+                // Disable analyze button
+                analyzeBtn.disabled = true;
+                
+                // Hide reset button
+                resetBtn.style.display = "none";
+                
+                // Hide prediction if present
+                predictionContainer.style.display = "none";
+            });
+            
+            // Form submission
+            form.addEventListener('submit', function() {
+                loading.style.display = "block";
+                analyzeBtn.disabled = true;
+            });
+            
+            // Drag and drop functionality
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                uploadArea.style.borderColor = "#6c5ce7";
+                uploadArea.style.backgroundColor = "#f5f5ff";
+            }
+            
+            function unhighlight() {
+                uploadArea.style.borderColor = "#ddd";
+                uploadArea.style.backgroundColor = "#f9f9f9";
+            }
+            
+            uploadArea.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                if (files && files.length) {
+                    fileInput.files = files;
+                    // Trigger change event
+                    const event = new Event('change');
+                    fileInput.dispatchEvent(event);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
