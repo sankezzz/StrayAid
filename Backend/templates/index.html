@@ -6,6 +6,9 @@
     <title>Stray Injury Detection</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <style>
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -18,7 +21,7 @@
         }
         
         .container {
-            max-width: 700px;
+            max-width: 850px;
             padding: 40px;
             background: white;
             border-radius: 20px;
@@ -52,17 +55,21 @@
         .form-control {
             border: 2px dashed #ddd;
             border-radius: 10px;
+            transition: all 0.3s;
+            background: #f9f9f9;
+        }
+        
+        .upload-area {
             padding: 60px 20px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
-            background: #f9f9f9;
             position: relative;
         }
         
-        .form-control:hover {
+        .form-control:hover, .form-control:focus {
             border-color: #a29bfe;
             background: #f5f5ff;
+            box-shadow: 0 0 0 0.25rem rgba(108, 92, 231, 0.25);
         }
         
         .input-label {
@@ -215,44 +222,182 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        .form-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+        
+        .form-section:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-section h4 {
+            margin-bottom: 15px;
+            color: #6c5ce7;
+            font-weight: 600;
+        }
+        
+        .form-section h4 i {
+            margin-right: 8px;
+        }
+        
+        .info-textarea {
+            min-height: 150px;
+            border: 1px solid #ddd;
+        }
+        
+        .map-container {
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+        }
+        
+        .location-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .location-btn {
+            flex: 1;
+            border: none;
+            background: #f1f3f4;
+            color: #555;
+            border-radius: 30px;
+            padding: 8px 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .location-btn i {
+            margin-right: 8px;
+        }
+        
+        .location-btn:hover {
+            background: #e9ecef;
+            color: #6c5ce7;
+        }
+        
+        .location-btn.active {
+            background: #6c5ce7;
+            color: white;
+        }
+        
+        .address-input {
+            border-radius: 30px;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+        }
+        
+        .injury-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .injury-tag {
+            background: #e9ecef;
+            color: #555;
+            border-radius: 30px;
+            padding: 5px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .injury-tag:hover {
+            background: #d1d7dd;
+        }
+        
+        .injury-tag.selected {
+            background: #6c5ce7;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2><i class="fas fa-paw"></i>Stray Injury Detection</h2>
+        <h2><i class="fas fa-paw"></i>Stray Injury Reporting Portal</h2>
         <form action="/" method="post" enctype="multipart/form-data" id="upload-form">
-            <div class="position-relative mb-4">
-                <div class="form-control upload-area" id="upload-area">
-                    <div class="input-label" id="upload-label">
-                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                        <div class="upload-text">Drag and drop an image or click to browse</div>
-                        <div id="file-name"></div>
+            <div class="form-section">
+                <h4><i class="fas fa-image"></i>Upload Photo</h4>
+                <div class="position-relative mb-4">
+                    <div class="form-control upload-area" id="upload-area">
+                        <div class="input-label" id="upload-label">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <div class="upload-text">Drag and drop an image or click to browse</div>
+                            <div id="file-name"></div>
+                        </div>
+                        <input type="file" name="file" class="file-input" accept="image/*" required id="file-input">
                     </div>
-                    <input type="file" name="file" class="file-input" accept="image/*" required id="file-input">
+                </div>
+                
+                <div class="preview-container" id="preview-container">
+                    <img id="image-preview" class="preview-img" src="" alt="Image Preview">
                 </div>
             </div>
             
-            <div class="preview-container" id="preview-container">
-                <img id="image-preview" class="preview-img" src="" alt="Image Preview">
+            <div class="form-section">
+                <h4><i class="fas fa-clipboard-list"></i>Animal Information</h4>
+                <div class="mb-3">
+                    <label for="user_input" class="form-label"><strong>Describe the condition of the stray animal or the inital diagnosis</strong></label>
+                    <div class="injury-tags">
+                        <span class="injury-tag" onclick="addToTextarea('Limping')">Limping</span>
+                        <span class="injury-tag" onclick="addToTextarea('Bleeding')">Bleeding</span>
+                        <span class="injury-tag" onclick="addToTextarea('Wounded')">Wounded</span>
+                        <span class="injury-tag" onclick="addToTextarea('Malnourished')">Malnourished</span>
+                        <span class="injury-tag" onclick="addToTextarea('Skin condition')">Skin condition</span>
+                    </div>
+                    <textarea class="form-control info-textarea mt-3" id="user_input" name="user_input" rows="5" placeholder="Describe any injuries, behavior, or other relevant information about the stray animal..."></textarea>
+                </div>
             </div>
-                        <!-- Add this inside the form, after the image preview -->
-            <div class="mb-3 mt-3">
-                <label for="user_input" class="form-label"><strong>Additional Information</strong></label>
-                <textarea class="form-control" id="user_input" name="user_input" rows="3" placeholder="Describe the condition of the stray animal..."></textarea>
+            
+            <div class="form-section">
+                <h4><i class="fas fa-map-marker-alt"></i>Location Information</h4>
+                <div class="location-buttons">
+                    <button type="button" class="location-btn active" id="current-location-btn">
+                        <i class="fas fa-crosshairs"></i>Current Location
+                    </button>
+                    <button type="button" class="location-btn" id="manual-location-btn">
+                        <i class="fas fa-pencil-alt"></i>Enter Address
+                    </button>
+                </div>
+                
+                <div id="address-input-container" style="display: none;" class="mb-3">
+                    <input type="text" class="form-control address-input" id="address-input" name="address" placeholder="Enter the address or location description">
+                </div>
+                
+                <div class="map-container" id="map">
+                    <!-- Map placeholder -->
+                    <img src="/api/placeholder/800/250" alt="Map" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                
+                <!-- Hidden inputs to store location data -->
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+                <input type="hidden" id="location_description" name="location_description">
             </div>
-
             
             <div>
                 <button type="submit" class="btn-upload" id="analyze-btn" disabled>
-                    <i class="fas fa-search"></i>Analyze Image
+                    <i class="fas fa-search"></i>Make Report 
                 </button>
                 <button type="button" class="reset-btn" id="reset-btn" style="display: none;">
                     <i class="fas fa-redo"></i> Reset
                 </button>
             </div>
-          
-</script>
-
             
             <div class="loading" id="loading">
                 <div class="spinner"></div> Analyzing image...
@@ -266,6 +411,11 @@
                     <span id="prediction-text">Healthy</span>
                 </span>
             </h3>
+            <div id="prediction-details" class="mt-3">
+                <p>Based on the image analysis, this animal appears to be in good health with no visible injuries.</p>
+            </div>
+            <div id="map" style="height: 400px; width: 100%;"></div>
+
         </div>
     </div>
     
@@ -286,6 +436,13 @@
             const predictionBadge = document.getElementById('prediction-badge');
             const predictionIcon = document.getElementById('prediction-icon');
             const predictionText = document.getElementById('prediction-text');
+            const currentLocationBtn = document.getElementById('current-location-btn');
+            const manualLocationBtn = document.getElementById('manual-location-btn');
+            const addressInputContainer = document.getElementById('address-input-container');
+            const addressInput = document.getElementById('address-input');
+            const latitudeInput = document.getElementById('latitude');
+            const longitudeInput = document.getElementById('longitude');
+            const locationDescriptionInput = document.getElementById('location_description');
             
             // Initialize with server-provided data if available
             {% if prediction %}
@@ -411,7 +568,108 @@
                     fileInput.dispatchEvent(event);
                 }
             }
+            let map = L.map('map').setView([20, 78], 5); // Default India center
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            let marker;
+
+            function updateMap(lat, lng) {
+                if (marker) {
+                    marker.setLatLng([lat, lng]);
+                } else {
+                    marker = L.marker([lat, lng]).addTo(map);
+                }
+                map.setView([lat, lng], 15);
+            }
+
+            // Get Current Location
+            currentLocationBtn.addEventListener("click", function () {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        let lat = position.coords.latitude;
+                        let lng = position.coords.longitude;
+                        updateMap(lat, lng);
+                        console.log("Location updated:", lat, lng);
+                    });
+                }
+            });
+
+            // Address Input ke liye Geocoding (Using Nominatim API)
+            addressInput.addEventListener("input", async function () {
+                let address = this.value;
+                let response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address}`);
+                let data = await response.json();
+                if (data.length > 0) {
+                    let lat = data[0].lat;
+                    let lon = data[0].lon;
+                    updateMap(lat, lon);
+                    console.log("Address updated:", address, lat, lon);
+                }
+            });
+
+            
+            // Location toggle
+            currentLocationBtn.addEventListener('click', function() {
+                currentLocationBtn.classList.add('active');
+                manualLocationBtn.classList.remove('active');
+                addressInputContainer.style.display = 'none';
+                
+                // Get current location
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        latitudeInput.value = position.coords.latitude;
+                        longitudeInput.value = position.coords.longitude;
+                        locationDescriptionInput.value = 'Current location';
+                        
+                        // In a real implementation, here you would update the map with the current location
+                        console.log('Location updated:', position.coords.latitude, position.coords.longitude);
+                    });
+                }
+            });
+            
+            manualLocationBtn.addEventListener('click', function() {
+                manualLocationBtn.classList.add('active');
+                currentLocationBtn.classList.remove('active');
+                addressInputContainer.style.display = 'block';
+            });
+            
+            addressInput.addEventListener('input', function() {
+                locationDescriptionInput.value = this.value;
+                
+                // In a real implementation, here you would geocode the address and update the map
+                // This is a placeholder for that functionality
+                console.log('Address updated:', this.value);
+            });
+            
+            // Initialize by attempting to get current location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    latitudeInput.value = position.coords.latitude;
+                    longitudeInput.value = position.coords.longitude;
+                    locationDescriptionInput.value = 'Current location';
+                    
+                    // In a real implementation, here you would update the map with the current location
+                    console.log('Initial location:', position.coords.latitude, position.coords.longitude);
+                });
+            }
         });
+        
+        // Function to add tags to textarea
+        function addToTextarea(tag) {
+            const textarea = document.getElementById('user_input');
+            if (textarea.value) {
+                textarea.value += ', ' + tag;
+            } else {
+                textarea.value = tag;
+            }
+            
+            // Toggle selected class on the clicked tag
+            event.target.classList.toggle('selected');
+        }
     </script>
 </body>
 </html>

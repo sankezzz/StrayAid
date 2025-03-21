@@ -1,0 +1,145 @@
+[
+    {
+        "case_id": 1,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp"
+    },
+    {
+        "case_id": 2,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg"
+    },
+    {
+        "case_id": 3,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg"
+    },
+    {
+        "case_id": 4,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg"
+    },
+    {
+        "case_id": 5,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg"
+    },
+    {
+        "case_id": 6,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp"
+    },
+    {
+        "case_id": 7,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp"
+    },
+    {
+        "case_id": 8,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "fsahdfkjahsdf"
+    },
+    {
+        "case_id": 9,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "this is an animal"
+    },
+    {
+        "case_id": 10,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "yhyhyh"
+    },
+    {
+        "case_id": 11,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "fsahdfkjahsdf"
+    },
+    {
+        "case_id": 12,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "yhyhyh"
+    },
+    {
+        "case_id": 13,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "Malnourished, Wounded   jakjdaddf"
+    },
+    {
+        "case_id": 14,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\WhatsApp_Image_2025-03-19_at_12.42.03_25a11039.jpg",
+        "user_input": "Bleeding, Wounded"
+    },
+    {
+        "case_id": 15,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "sdfaf"
+    },
+    {
+        "case_id": 16,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "sdfaf"
+    },
+    {
+        "case_id": 17,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "sdfaf"
+    },
+    {
+        "case_id": 18,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "sdfaf"
+    },
+    {
+        "case_id": 19,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "sdfaf"
+    },
+    {
+        "case_id": 20,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Bleeding, Wounded"
+    },
+    {
+        "case_id": 21,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Bleeding, Wounded"
+    },
+    {
+        "case_id": 22,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Bleeding, Wounded"
+    },
+    {
+        "case_id": 23,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Bleeding, Wounded"
+    },
+    {
+        "case_id": 24,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Malnourished, Bleeding, Limping, Skin condition"
+    },
+    {
+        "case_id": 25,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Malnourished, Bleeding, Limping, Skin condition"
+    }
+]

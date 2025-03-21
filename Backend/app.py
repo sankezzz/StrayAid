@@ -61,6 +61,7 @@ def predict_image(image_path):
 def api_result():
     if request.method == "POST":
         data = request.get_json()  
+        response = requests.post("http://localhost:6000/api/nlp", json=data)
 
         if not data or "prediction" not in data or "image_path" not in data or "user_input" not in data:
             return jsonify({"error": "Invalid request, missing fields"}), 400
@@ -73,7 +74,8 @@ def api_result():
             "case_id": case_id,
             "prediction": data["prediction"],
             "image_path": data["image_path"],
-            "user_input": data["user_input"]  # Storing user input
+            "user_input": data["user_input"],
+                # Storing user input
         }
 
         json_data.append(new_entry)
