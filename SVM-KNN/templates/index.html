@@ -235,6 +235,12 @@
             <div class="preview-container" id="preview-container">
                 <img id="image-preview" class="preview-img" src="" alt="Image Preview">
             </div>
+                        <!-- Add this inside the form, after the image preview -->
+            <div class="mb-3 mt-3">
+                <label for="user_input" class="form-label"><strong>Additional Information</strong></label>
+                <textarea class="form-control" id="user_input" name="user_input" rows="3" placeholder="Describe the condition of the stray animal..."></textarea>
+            </div>
+
             
             <div>
                 <button type="submit" class="btn-upload" id="analyze-btn" disabled>
@@ -244,6 +250,9 @@
                     <i class="fas fa-redo"></i> Reset
                 </button>
             </div>
+          
+</script>
+
             
             <div class="loading" id="loading">
                 <div class="spinner"></div> Analyzing image...

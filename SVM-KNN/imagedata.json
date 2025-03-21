@@ -8,5 +8,48 @@
         "case_id": 2,
         "prediction": "Injured",
         "image_path": "uploads\\istockphoto-1200799727-612x612.jpg"
+    },
+    {
+        "case_id": 3,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg"
+    },
+    {
+        "case_id": 4,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg"
+    },
+    {
+        "case_id": 5,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg"
+    },
+    {
+        "case_id": 6,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp"
+    },
+    {
+        "case_id": 7,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp"
+    },
+    {
+        "case_id": 8,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "fsahdfkjahsdf"
+    },
+    {
+        "case_id": 9,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "this is an animal"
+    },
+    {
+        "case_id": 10,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "yhyhyh"
     }
 ]

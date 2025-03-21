@@ -1,7 +1,5 @@
 from flask import Flask, request, render_template, jsonify
 import os
-import cv2
-import numpy as np
 import joblib
 import torch
 import json
@@ -64,8 +62,8 @@ def api_result():
     if request.method == "POST":
         data = request.get_json()  
 
-        if not data or "prediction" not in data or "image_path" not in data:
-            return jsonify({"error": "Invalid request, 'prediction' or 'image_path' missing"}), 400
+        if not data or "prediction" not in data or "image_path" not in data or "user_input" not in data:
+            return jsonify({"error": "Invalid request, missing fields"}), 400
 
         # Read current data
         json_data = read_json()
@@ -74,7 +72,8 @@ def api_result():
         new_entry = {
             "case_id": case_id,
             "prediction": data["prediction"],
-            "image_path": data["image_path"]
+            "image_path": data["image_path"],
+            "user_input": data["user_input"]  # Storing user input
         }
 
         json_data.append(new_entry)
@@ -84,19 +83,26 @@ def api_result():
 
     elif request.method == "GET":
         json_data = read_json()
+        
         if not json_data:
             return jsonify({"message": "No prediction data available"}), 404
-        return jsonify(json_data), 200
+        
+        latest_entry = json_data[-1]  # Get the last (latest) entry
+        return jsonify(latest_entry), 200  # Return only the latest prediction
 
 # Homepage route to upload and process images
 @app.route("/", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
-        if "file" not in request.files:
-            return "No file part"
+        if "file" not in request.files or "user_input" not in request.form:
+            return "No file or user input part"
+        
         file = request.files["file"]
+        user_input = request.form["user_input"]  # Get text from input field
+
         if file.filename == "":
             return "No selected file"
+        
         if file:
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
@@ -107,17 +113,16 @@ def upload_file():
 
             # Send result to API
             api_url = "http://localhost:5000/api/result"
-            payload = {"prediction": result, "image_path": filepath}
+            payload = {"prediction": result, "image_path": filepath, "user_input": user_input}
             try:
                 response = requests.post(api_url, json=payload)
                 api_response = response.json()
             except requests.exceptions.RequestException as e:
                 api_response = {"error": str(e)}
 
-            return render_template("index.html", prediction=result, image_path=filepath, api_response=api_response)
+            return render_template("index.html", prediction=result, image_path=filepath, api_response=api_response, user_input=user_input)
 
-    return render_template("index.html", prediction=None, image_path=None, api_response=None)
-
+    return render_template("index.html", prediction=None, image_path=None, api_response=None, user_input=None)
 
 if __name__ == "__main__":
     app.run(debug=True)
