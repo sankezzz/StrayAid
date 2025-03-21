@@ -34,14 +34,19 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 # Function to read & update JSON file
 def read_json():
     if not os.path.exists(JSON_FILE):
+        print("JSON file not found, returning empty list.")  # Debugging
         return []
     with open(JSON_FILE, "r") as file:
         try:
-            return json.load(file)
+            data = json.load(file)
+            print("Read JSON Data:", data)  # Debugging
+            return data
         except json.JSONDecodeError:
+            print("JSON Decode Error, returning empty list.")  # Debugging
             return []
 
 def write_json(data):
+    print("Writing to JSON:", data)  # Debugging
     with open(JSON_FILE, "w") as file:
         json.dump(data, file, indent=4)
 
@@ -61,10 +66,11 @@ def predict_image(image_path):
 def api_result():
     if request.method == "POST":
         data = request.get_json()  
-        response = requests.post("http://localhost:6000/api/nlp", json=data)
 
         if not data or "prediction" not in data or "image_path" not in data or "user_input" not in data:
             return jsonify({"error": "Invalid request, missing fields"}), 400
+
+        print("Received data for storage:", data)  # Debugging
 
         # Read current data
         json_data = read_json()
@@ -75,7 +81,6 @@ def api_result():
             "prediction": data["prediction"],
             "image_path": data["image_path"],
             "user_input": data["user_input"],
-                # Storing user input
         }
 
         json_data.append(new_entry)
@@ -116,10 +121,13 @@ def upload_file():
             # Send result to API
             api_url = "http://localhost:5000/api/result"
             payload = {"prediction": result, "image_path": filepath, "user_input": user_input}
+            
             try:
                 response = requests.post(api_url, json=payload)
+                print("API Response:", response.status_code, response.text)  # Debugging
                 api_response = response.json()
             except requests.exceptions.RequestException as e:
+                print("Request Exception:", str(e))  # Debugging
                 api_response = {"error": str(e)}
 
             return render_template("index.html", prediction=result, image_path=filepath, api_response=api_response, user_input=user_input)

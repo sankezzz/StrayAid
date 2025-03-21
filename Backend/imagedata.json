@@ -141,5 +141,17 @@
         "prediction": "Injured",
         "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
         "user_input": "Malnourished, Bleeding, Limping, Skin condition"
+    },
+    {
+        "case_id": 26,
+        "prediction": "Injured",
+        "image_path": "uploads\\noise_-_image.jpg",
+        "user_input": "Bleeding, Limping, Wounded"
+    },
+    {
+        "case_id": 27,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\h.jpg",
+        "user_input": "xsdfsdfsd"
     }
 ]
