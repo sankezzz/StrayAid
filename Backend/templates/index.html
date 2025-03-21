@@ -398,6 +398,19 @@
                     <i class="fas fa-redo"></i> Reset
                 </button>
             </div>
+            <button onclick="triggerScripts()" class="btn-upload">Trigger NLP & WhatsApp</button>
+
+            <script>
+                function triggerScripts() {
+                    fetch('/trigger')
+                    .then(response => response.json())
+                    .then(data => alert(data.message))
+                    .catch(error => console.error("Error:", error));
+                }
+            </script>
+
+            
+            
             
             <div class="loading" id="loading">
                 <div class="spinner"></div> Analyzing image...
@@ -443,6 +456,7 @@
             const latitudeInput = document.getElementById('latitude');
             const longitudeInput = document.getElementById('longitude');
             const locationDescriptionInput = document.getElementById('location_description');
+            
             
             // Initialize with server-provided data if available
             {% if prediction %}
@@ -496,6 +510,7 @@
                     predictionContainer.style.display = "none";
                 }
             });
+               
             
             // Reset button functionality
             resetBtn.addEventListener('click', function(e) {

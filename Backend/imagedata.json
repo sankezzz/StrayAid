@@ -153,5 +153,47 @@
         "prediction": "Not Injured",
         "image_path": "uploads\\h.jpg",
         "user_input": "xsdfsdfsd"
+    },
+    {
+        "case_id": 28,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "Bleeding, Wounded, Malnourished"
+    },
+    {
+        "case_id": 29,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "Wounded, Bleeding"
+    },
+    {
+        "case_id": 30,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "adfadfa"
+    },
+    {
+        "case_id": 31,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Wounded, Malnourished on the side of the road"
+    },
+    {
+        "case_id": 32,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Wounded, Malnourished on the side of the road"
+    },
+    {
+        "case_id": 33,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Wounded, Malnourished on the side of the road"
+    },
+    {
+        "case_id": 34,
+        "prediction": "Injured",
+        "image_path": "uploads\\profile-Photoroom.png",
+        "user_input": ""
     }
 ]

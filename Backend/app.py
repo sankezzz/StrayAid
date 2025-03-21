@@ -134,5 +134,19 @@ def upload_file():
 
     return render_template("index.html", prediction=None, image_path=None, api_response=None, user_input=None)
 
-if __name__ == "__main__":
+import subprocess
+
+@app.route('/trigger', methods=['GET'])
+def trigger_scripts():
+    try:
+        # Run nlp.py
+        subprocess.Popen(["python", "nlp.py"])
+        # Run whatsapp.py
+        subprocess.Popen(["python", "whatsapp.py"])
+        return jsonify({"message": "Scripts triggered successfully!"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+if __name__ == '__main__':
     app.run(debug=True)
+
