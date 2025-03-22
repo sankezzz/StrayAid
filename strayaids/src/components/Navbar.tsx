@@ -24,9 +24,9 @@ const Navbar = () => {
 
   const navItems = [
     { name: 'Dashboard', path: '/dashboard' },
-    { name: 'How It Works', path: '#how-it-works' },
-    { name: 'Success Stories', path: '#success-stories' },
-    { name: 'NGO Partners', path: '#ngo-partners' },
+    { name: 'How It Works', path: '/works' },
+    { name: 'Success Stories', path: '/Success' },
+    { name: 'NGO Partners', path: '/track' },
     { name: 'Get Involved', path: '#get-involved' },
   ];
 

@@ -12,6 +12,9 @@ import Hero from './components/Hero';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import VirtualVet from './components/VirtualVet';
+import SuccessStories from './components/SuccessStories';
+import HowItWorks from './components/HowItWorks';
+import ImpactTracker from './components/ImpactTracker';
 
 const queryClient = new QueryClient();
 
@@ -27,13 +30,16 @@ const App = () => (
             <Route path="/" element={
               <>
                 <Hero 
-                  title="Give Them a Second Chance" 
+                  title="Be their Voice Save A Life" 
                   subtitle="Connect injured stray animals with local NGOs and rescue organizations. Together, we can make a difference."
                 />
                 <Index />
               </>
             } />
             <Route path="/virtual-vet" element={<VirtualVet />} />
+            <Route path="/Success" element={<SuccessStories />} />
+            <Route path="/works" element={<HowItWorks />} />
+            <Route path="/track" element={<ImpactTracker />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <DashboardPage />

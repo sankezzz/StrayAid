@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 
 interface HeroProps {
   title: string;
@@ -10,6 +11,7 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle }) => {
   const heroRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -81,9 +83,12 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle }) => {
           </button>
 
             
-            <button className="bg-transparent border border-white/30 text-white rounded-full px-8 py-3.5 font-medium transition-all hover:bg-white/10 active:scale-95">
-              See How It Works
-            </button>
+            <button 
+          className="bg-transparent border border-white/30 text-white rounded-full px-8 py-3.5 font-medium transition-all hover:bg-white/10 active:scale-95"
+          onClick={() => navigate("/virtual-vet")}
+        >
+          Get First Aid Help
+        </button>
           </div>
         </div>
       </div>

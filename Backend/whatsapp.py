@@ -5,7 +5,7 @@ import pyautogui
 from nlp import final_report
 
 # ------------------ CONFIG ------------------
-whatsapp_number = "+919730182225"  # ✅ Apna number daalo
+whatsapp_number = "+919923390452"  # ✅ Apna number daalo
 message = final_report
 
 # ------------------ ENCODE MESSAGE ------------------

@@ -213,5 +213,101 @@
         "prediction": "Injured",
         "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
         "user_input": "Wounded, Malnourished, Skin condition"
+    },
+    {
+        "case_id": 38,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Wounded, Malnourished, Bleeding"
+    },
+    {
+        "case_id": 39,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Wounded, Malnourished, Skin condition"
+    },
+    {
+        "case_id": 40,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Wounded, Malnourished, Skin condition"
+    },
+    {
+        "case_id": 41,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Wounded, Malnourished, Skin condition"
+    },
+    {
+        "case_id": 42,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Bleeding, Wounded"
+    },
+    {
+        "case_id": 43,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\cat2.webp",
+        "user_input": "Wounded, Malnourished, Bleeding"
+    },
+    {
+        "case_id": 44,
+        "prediction": "Injured",
+        "image_path": "uploads\\maxresdefault.jpg",
+        "user_input": "Wounded, Malnourished, Bleeding"
+    },
+    {
+        "case_id": 45,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Bleeding, Wounded, Malnourished, Skin condition, Limping"
+    },
+    {
+        "case_id": 46,
+        "prediction": "Injured",
+        "image_path": "uploads\\maxresdefault.jpg",
+        "user_input": "Wounded, Malnourished, Skin condition"
+    },
+    {
+        "case_id": 47,
+        "prediction": "Injured",
+        "image_path": "uploads\\maxresdefault.jpg",
+        "user_input": "Wounded, Malnourished, Skin condition"
+    },
+    {
+        "case_id": 48,
+        "prediction": "Injured",
+        "image_path": "uploads\\maxresdefault.jpg",
+        "user_input": "Wounded, Malnourished, Bleeding"
+    },
+    {
+        "case_id": 49,
+        "prediction": "Injured",
+        "image_path": "uploads\\maxresdefault.jpg",
+        "user_input": "Bleeding, Wounded, Malnourished"
+    },
+    {
+        "case_id": 50,
+        "prediction": "Injured",
+        "image_path": "uploads\\dog.jpg",
+        "user_input": ""
+    },
+    {
+        "case_id": 51,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\cat2.webp",
+        "user_input": ""
+    },
+    {
+        "case_id": 52,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": ""
+    },
+    {
+        "case_id": 53,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "Bleeding"
     }
 ]

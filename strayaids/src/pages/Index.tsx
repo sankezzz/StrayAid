@@ -38,10 +38,7 @@ const Index = () => {
     <main className="min-h-screen bg-background overflow-hidden">
       <Navbar />
       
-      <Hero 
-        title="Give Them a Second Chance"
-        subtitle="Every rescue begins with you. Spot an injured animal, report it through our platform, and connect with local NGOs to save a life."
-      />
+      
       
       <ImpactTracker />
       
