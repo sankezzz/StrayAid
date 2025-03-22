@@ -41,7 +41,7 @@ def extract_entities(text):
 
 # Train SVM classifier
 X_train = [
-    "profuse bleeding, unconscious",  
+    "profuse bleeding, unconscious,blood,scar ",  
     "broken leg, limping",  
     "shivering, minor wound",  
     "healthy, walking normally",  
@@ -68,13 +68,13 @@ def generate_whatsapp_report(data, entities, urgency):
 📢 *Urgent Stray Animal Assistance Required!*  
 
 🆔 *Case ID:* {case_id}  
-📍 *Location:* {location_text}  
+📍 *Location: "Manipal University , Jaipur"  
 🖼 *Image:* {image_url}  
 🔍 *Detection:* {data['prediction']} ({symptoms_text})  
 ⚠ *Urgency Level:* {urgency} (Review needed)  
 
 🚀 *Action Required:* Please review the case and initiate rescue intervention.  
-📞 *Contact Person (If Available):* Sanket Suryawanshi (+91XXXXXXXXXX)  
+📞 *Contact Person (If Available):* Sanket Suryawanshi (+919730182225)  
 
 🔗 [Update Case Status Here](NGO Dashboard)  
 

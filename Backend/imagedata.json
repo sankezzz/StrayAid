@@ -195,5 +195,23 @@
         "prediction": "Injured",
         "image_path": "uploads\\profile-Photoroom.png",
         "user_input": ""
+    },
+    {
+        "case_id": 35,
+        "prediction": "Not Injured",
+        "image_path": "uploads\\85120553.webp",
+        "user_input": "Bleeding, Malnourished, bleed"
+    },
+    {
+        "case_id": 36,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Bleeding, Wounded, Malnourished"
+    },
+    {
+        "case_id": 37,
+        "prediction": "Injured",
+        "image_path": "uploads\\istockphoto-1200799727-612x612.jpg",
+        "user_input": "Wounded, Malnourished, Skin condition"
     }
 ]
