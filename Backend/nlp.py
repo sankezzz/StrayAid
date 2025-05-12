@@ -68,7 +68,7 @@ def generate_whatsapp_report(data, entities, urgency):
 📢 *Urgent Stray Animal Assistance Required!*  
 
 🆔 *Case ID:* {case_id}  
-📍 *Location: "Manipal University , Jaipur"  
+📍 *Location: "Ramdeobaba University , Nagpur"  
 🖼 *Image:* {image_url}  
 🔍 *Detection:* {data['prediction']} ({symptoms_text})  
 ⚠ *Urgency Level:* {urgency} (Review needed)  
